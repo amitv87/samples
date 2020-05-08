@@ -42,7 +42,7 @@ function errorMsg(msg, error) {
   }
 }
 
-_startScreenCapture function() {
+function startScreenCapture() {
   if (navigator.getDisplayMedia) {
     return navigator.getDisplayMedia({video: true});
   } else if (navigator.mediaDevices.getDisplayMedia) {
@@ -54,7 +54,7 @@ _startScreenCapture function() {
 
 async function init(e) {
   try {
-    const stream = await _startScreenCapture();
+    const stream = await startScreenCapture();
     handleSuccess(stream);
     e.target.disabled = true;
   } catch (e) {
