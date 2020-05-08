@@ -42,9 +42,19 @@ function errorMsg(msg, error) {
   }
 }
 
+_startScreenCapture function() {
+  if (navigator.getDisplayMedia) {
+    return navigator.getDisplayMedia({video: true});
+  } else if (navigator.mediaDevices.getDisplayMedia) {
+    return navigator.mediaDevices.getDisplayMedia({video: true});
+  } else {
+    return navigator.mediaDevices.getUserMedia({video: {mediaSource: 'screen'}});
+  }
+}
+
 async function init(e) {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const stream = await _startScreenCapture();
     handleSuccess(stream);
     e.target.disabled = true;
   } catch (e) {
